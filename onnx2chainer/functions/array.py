@@ -53,3 +53,6 @@ def parse_Split(op, inits):
 
 def parse_Reshape(op, inits):
     return OReshape(inits)
+
+def parse_Squeeze(op, inits):
+    return F.squeeze
