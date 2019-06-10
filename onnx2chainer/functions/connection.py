@@ -55,6 +55,7 @@ class OConv(chainer.Chain):
                                          initialW     = self.W,
                                          initial_bias = self.b)
 
+        self.l.to_gpu() # TODO: Do this only if GPU is enabled by a user
         return self.l(x)
 
 class OGemm(chainer.Chain):
