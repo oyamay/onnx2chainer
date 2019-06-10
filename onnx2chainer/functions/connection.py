@@ -23,7 +23,15 @@ class OConv(chainer.Chain):
         self.b = b
 
         self.registered = False
-        # self.l = None
+        self.devices = []
+
+    def to_gpu(self, device=None):
+        assert not self.registered
+        self.devices.append(device)
+
+    def to_cpu(self):
+        assert not self.registered
+        self.devices = []
 
     def forward(self, x):
         if not self.registered:
@@ -55,7 +63,9 @@ class OConv(chainer.Chain):
                                          initialW     = self.W,
                                          initial_bias = self.b)
 
-        self.l.to_gpu() # TODO: Do this only if GPU is enabled by a user
+        for d in self.devices:
+            self.l.to_gpu(d)
+
         return self.l(x)
 
 class OGemm(chainer.Chain):
