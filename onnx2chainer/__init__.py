@@ -56,9 +56,9 @@ def onnxToChainer(o, gpu=None, printTensorStack=False):
         def forward(self, *args):
             tensors = {}
 
-            assert len(args) == 1
-            assert len(self.modelInputNames) == 1
-            tensors[list(self.modelInputNames)[0]] = args[0]
+            assert len(self.modelInputNames) == len(args)
+            for name, arg in zip(list(self.modelInputNames), args):
+                tensors[name] = arg
 
             for op, iNames, oNames in self.nodes:
                 inputs = list(map(lambda x: tensors[x],
