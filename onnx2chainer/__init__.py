@@ -57,7 +57,6 @@ def onnxToChainer(o, gpu=None, printTensorStack=False):
             tensors = {}
 
             if isinstance(arg, dict):
-                assert len(self.modelInputNames) == len(arg)
                 for k,v in arg.items():
                     tensors[k] = v
 
